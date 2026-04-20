@@ -28,3 +28,47 @@ BSD-2-Clause
 ## Logo
 
 [ awesome logo image by [gophers...](https://github.com/egonelbre/gophers) ]
+
+## Installation
+
+```bash
+go get github.com/openshift-online/weberr
+```
+
+Or in more recent Go versions:
+
+```bash
+go get github.com/openshift-online/weberr@latest
+```
+
+## Usage
+
+```go
+import "github.com/openshift-online/weberr"
+
+// Create a typed error with an HTTP status
+err := weberr.New(http.StatusNotFound, "resource not found")
+
+// Wrap an existing error with HTTP context
+err = weberr.Wrap(err, http.StatusInternalServerError, "failed to process request")
+
+// Set a user-friendly message
+err = weberr.WithUserMessage(err, "Something went wrong, please try again")
+
+// Retrieve the HTTP status code
+code := weberr.HTTPStatusCode(err)  // returns 500
+```
+
+## Development
+
+```bash
+go test ./...         # Run all tests
+go vet ./...          # Run static analysis
+```
+
+### Contributing
+
+1. Fork this repository
+2. Create a feature branch from `master`
+3. Make your changes with tests
+4. Submit a pull request
